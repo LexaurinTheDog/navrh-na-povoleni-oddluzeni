@@ -33,10 +33,18 @@ Nebo použijte triggery:
 
 ## Sepisovatel
 
-- JUDr. Vojtěch Říha, Ph.D., advokát
-- RIHA legal advokátní kancelář s.r.o., IČO: 21006601
-- Sídlo: Moulíkova 2239/3, Smíchov, 150 00 Praha
-- ID datové schránky advokáta: y2btkj3
+Před použitím skillu je nutné nastavit údaje sepisovatele v souborech:
+- `SKILL.md` - hlavní definice
+- `templates/*.md` - šablony dokumentů
+- `reference/xml_template.xml` - XML šablona
+
+Placeholdery k nahrazení:
+- `[JMENO_ADVOKATA]` - jméno advokáta s tituly
+- `[NAZEV_KANCELARE]` - název advokátní kanceláře
+- `[ICO_KANCELARE]` - IČO kanceláře
+- `[SIDLO_KANCELARE]` - sídlo kanceláře
+- `[ID_DATOVE_SCHRANKY]` - ID datové schránky advokáta
+- `[EV_CISLO_CAK]` - evidenční číslo ČAK
 
 ## Reference
 
@@ -47,4 +55,4 @@ Nebo použijte triggery:
 
 ## Licence
 
-Proprietární - pouze pro interní použití RIHA legal advokátní kancelář s.r.o.
+MIT License - viz soubor LICENSE

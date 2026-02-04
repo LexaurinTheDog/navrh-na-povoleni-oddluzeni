@@ -141,11 +141,11 @@
       <osoba_je>1</osoba_je>
       <fyzicka_osoba>
         <osoba>
-          <prijmeni>Říha</prijmeni>
-          <jmeno>Vojtěch</jmeno>
-          <titul_pred>JUDr.</titul_pred>
-          <titul_za>Ph.D.</titul_za>
-          <ico>21006601</ico>
+          <prijmeni>[PRIJMENI_ADVOKATA]</prijmeni>
+          <jmeno>[JMENO_ADVOKATA_KRESTNI]</jmeno>
+          <titul_pred>[TITUL_PRED]</titul_pred>
+          <titul_za>[TITUL_ZA]</titul_za>
+          <ico>[ICO_KANCELARE]</ico>
         </osoba>
       </fyzicka_osoba>
     </jedna_za_dluznika>
@@ -346,13 +346,13 @@
   <podpisy>
     <!-- Podpis sepisovatele (podavajici navrh za dluznika) -->
     <podpis>
-      <v_mesto>Praha</v_mesto>
+      <v_mesto>[MESTO_KANCELARE]</v_mesto>
       <dne>{{DATUM_PODPISU}}</dne>
       <osoba>
-        <prijmeni>Říha</prijmeni>
-        <jmeno>Vojtěch</jmeno>
-        <titul_pred>JUDr.</titul_pred>
-        <titul_za>Ph.D.</titul_za>
+        <prijmeni>[PRIJMENI_ADVOKATA]</prijmeni>
+        <jmeno>[JMENO_ADVOKATA_KRESTNI]</jmeno>
+        <titul_pred>[TITUL_PRED]</titul_pred>
+        <titul_za>[TITUL_ZA]</titul_za>
       </osoba>
     </podpis>
   </podpisy>

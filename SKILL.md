@@ -10,10 +10,10 @@ argument-hint: "[cesta-k-dokumentaci-dluznika]"
 Tento skill automatizuje sepis insolvencniho navrhu spojeneho s navrhem na povoleni oddluzeni podle zakona c. 182/2006 Sb. (insolvencni zakon).
 
 Sepisovatelem navrhu je:
-- JUDr. Vojtech Riha, Ph.D., advokat
-- RIHA legal advokatni kancelar s.r.o., ICO: 21006601
-- Sidlo: Moulikova 2239/3, Smichov, 150 00 Praha
-- ID datove schranky advokata: y2btkj3
+- [JMENO_ADVOKATA], advokat
+- [NAZEV_KANCELARE], ICO: [ICO_KANCELARE]
+- Sidlo: [SIDLO_KANCELARE]
+- ID datove schranky advokata: [ID_DATOVE_SCHRANKY]
 
 ---
 

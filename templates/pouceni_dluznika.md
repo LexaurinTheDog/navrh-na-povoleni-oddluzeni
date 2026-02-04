@@ -23,10 +23,10 @@ Bytem: {{ADRESA_KOMPLETNI}}
 
 ### Identifikace sepisovatele
 
-Sepisovatel: **RIHA legal advokatni kancelar s.r.o.**
-ICO: 21006601
-Sidlo: Moulikova 2239/3, Smichov, 150 00 Praha 5
-Jednatel: JUDr. Vojtech Riha, Ph.D., advokat, ev. c. CAK 18591
+Sepisovatel: **[NAZEV_KANCELARE]**
+ICO: [ICO_KANCELARE]
+Sidlo: [SIDLO_KANCELARE]
+Jednatel: [JMENO_ADVOKATA], advokat, ev. c. CAK [EV_CISLO_CAK]
 
 ### Text pouceni
 
@@ -92,11 +92,11 @@ dlužník
 
 Poučení provedl:
 
-V Praze dne {{DATUM_PODPISU}}
+V [MESTO_KANCELARE] dne {{DATUM_PODPISU}}
 
 _________________________
-JUDr. Vojtěch Říha, Ph.D.
-RIHA legal advokátní kancelář s.r.o.
+[JMENO_ADVOKATA]
+[NAZEV_KANCELARE]
 
 ---
 

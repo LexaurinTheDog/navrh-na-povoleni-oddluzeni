@@ -24,7 +24,7 @@ bytem: {{ULICE}} {{CPOP}}{{CORI_S_LOMITKEM}}, {{PSC}} {{OBEC}}
 
 timto udeluji plnou moc
 
-spolecnosti **RIHA legal advokatni kancelar s.r.o.**, ICO: 21006601, se sidlem Moulikova 2239/3, Smichov, 150 00 Praha 5, zastoupene jednatelem JUDr. Vojtechem Rihou, Ph.D., advokitem, ev. c. CAK 18591,
+spolecnosti **[NAZEV_KANCELARE]**, ICO: [ICO_KANCELARE], se sidlem [SIDLO_KANCELARE], zastoupene jednatelem [JMENO_ADVOKATA], advokitem, ev. c. CAK [EV_CISLO_CAK],
 
 (dale jen "zmocnenec")
 
@@ -48,11 +48,11 @@ zmocnitel
 
 Plnou moc prijimam.
 
-V Praze dne {{DATUM_PODPISU}}
+V [MESTO_KANCELARE] dne {{DATUM_PODPISU}}
 
 _________________________
-JUDr. Vojtech Riha, Ph.D.
-RIHA legal advokatni kancelar s.r.o.
+[JMENO_ADVOKATA]
+[NAZEV_KANCELARE]
 zmocnenec
 
 ---
