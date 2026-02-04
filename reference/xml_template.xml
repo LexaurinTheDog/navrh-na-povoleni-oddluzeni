@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  XFA Data Template pro Navrh na povoleni oddluzeni (NNPO)
+  Verze formulare: 1.5.4
+
+  Tento soubor slouzi jako sablona pro generovani dat k importu
+  do interaktivniho PDF formulare v Adobe Acrobat Reader.
+
+  Import dat: Formular → Importovat data → vyberte tento XML soubor
+
+  PRAVIDLA:
+  - Prazdne elementy: <element/> (self-closing tag)
+  - Switch atributy: "1" = Ano, "0" = Ne, "" = nevyplneno
+  - Datumy: YYYY-MM-DD
+  - Castky: cisla s max. 2 desetinnymi misty (napr. 150000.00)
+  - Kody soudu: MSPH, KSPH, KSCB, KSPL, KSUL, KSLB, KSHK, KSPA, KSBR, KSOS, KSOL
+  - Rejstrik: vzdy "INS"
+  - fo_po_switch: "1" = Fyzicka osoba, "2" = Pravnicka osoba
+  - druh_upadku: "1" = upadek, "2" = hrozici upadek
+  - zp_oddluzeni: "1" = Splatkovy kalendar se zpenezenim, "2" = Zpenezeni, "3" = Nenavrhuje
+  - forma_upadku: "1" = platebni neschopnost, "2" = predluzeni
+  - dalsi_skutecnosti: "1" = zastavil platby, "2" = neplni 3+ mesice, "3" = nelze vykon rozhodnuti
+  - osoba_je: "1" = pouze pro sepis a podani, "2" = zastupce pro cele rizeni, "3" = zastupce pro dilci ukony
+  - vzdelani: "1" = zakladni, "2" = stredni, "3" = vyssi odborne, "4" = vysokoskolske
+  - druh prijmu: "1" = Zamestnani, "2" = OSVC, "3" = Starobni duchod, "4" = Invalidni duchod,
+                 "5" = Vysluhy, "6" = Davky SSP/HN, "7" = Jine
+-->
+<xfa:datasets xmlns:xfa="http://www.xfa.org/schema/xfa-data/1.0/">
+<xfa:data>
+<NNPO verze="1.5.4">
+
+  <!-- ============================================================ -->
+  <!-- PRILOHY - seznam priloh pripojenych k navrhu                 -->
+  <!-- ============================================================ -->
+  <prilohy>
+    <!-- Opakovatelny element: obecna_priloha -->
+    <!-- cislo = poradove cislo, nazev = nazev prilohy, jmeno_souboru = nazev souboru -->
+    <obecna_priloha cislo="1" nazev="Plná moc" jmeno_souboru="Priloha_1_Plna_moc.pdf" velikost_souboru=""/>
+    <obecna_priloha cislo="2" nazev="Poučení dlužníka sepisovatelem" jmeno_souboru="Priloha_2_Pouceni_dluznika.pdf" velikost_souboru=""/>
+    <obecna_priloha cislo="3" nazev="Seznam majetku dlužníka" jmeno_souboru="Priloha_3_Seznam_majetku.pdf" velikost_souboru=""/>
+    <obecna_priloha cislo="4" nazev="Seznam zaměstnanců dlužníka" jmeno_souboru="Priloha_4_Seznam_zamestnancu.pdf" velikost_souboru=""/>
+    <obecna_priloha cislo="5" nazev="Seznam závazků dlužníka" jmeno_souboru="Priloha_5_Seznam_zavazku.pdf" velikost_souboru=""/>
+    <!-- Dalsi prilohy dle potreby (potvrzeni o prijmech, vypis z RT atd.) -->
+  </prilohy>
+
+  <!-- Seznam listinnych priloh -->
+  <listinne_prilohy>
+    <listinna_priloha cislo="1" nazev="Plná moc"/>
+    <listinna_priloha cislo="2" nazev="Poučení dlužníka sepisovatelem"/>
+    <listinna_priloha cislo="3" nazev="Seznam majetku dlužníka dle § 103 a § 104 IZ"/>
+    <listinna_priloha cislo="4" nazev="Seznam zaměstnanců dlužníka dle § 103 a § 104 IZ"/>
+    <listinna_priloha cislo="5" nazev="Seznam závazků dlužníka dle § 103 a § 104 IZ"/>
+  </listinne_prilohy>
+
+  <!-- ============================================================ -->
+  <!-- I. HLAVICKA - oznaceni soudu a spisova znacka                -->
+  <!-- ============================================================ -->
+  <hlavicka>
+    <spisznacka>
+      <!-- Kod soudu: MSPH, KSPH, KSCB, KSPL, KSUL, KSLB, KSHK, KSPA, KSBR, KSOS, KSOL -->
+      <soud>{{SOUD}}</soud>
+      <senat/>
+      <rejstrik>INS</rejstrik>
+      <bc/>
+      <rocnik/>
+    </spisznacka>
+    <druh_navrhu>
+      <!-- Spojeni s insolvencnim navrhem: "1" = ano -->
+      <spojeni>1</spojeni>
+      <!-- Spolecny navrh manzelu: "1" = ano, "0" = ne -->
+      <spolecny_navrh>{{SPOLECNY_NAVRH}}</spolecny_navrh>
+      <!-- Insolvence proti manzelovi -->
+      <insolvence_proti_partnerovi switch="{{INS_PARTNER_SWITCH}}">
+        <spisznacka>
+          <soud/>
+          <senat/>
+          <rejstrik>INS</rejstrik>
+          <bc/>
+          <rocnik/>
+        </spisznacka>
+      </insolvence_proti_partnerovi>
+      <!-- "1" = upadek, "2" = hrozici upadek -->
+      <druh_upadku>1</druh_upadku>
+      <!-- "1" = Splatkovy kalendar se zpenezenim, "2" = Zpenezeni, "3" = Nenavrhuje -->
+      <zp_oddluzeni>1</zp_oddluzeni>
+    </druh_navrhu>
+  </hlavicka>
+
+  <!-- ============================================================ -->
+  <!-- III. IDENTIFIKACE DLUZNIKA                                   -->
+  <!-- ============================================================ -->
+  <!-- fo_po_switch: "1" = fyzicka osoba, "2" = pravnicka osoba -->
+  <dluznik fo_po_switch="1">
+    <fyzicka_osoba>
+      <osobni_udaje>
+        <osoba>
+          <prijmeni>{{PRIJMENI}}</prijmeni>
+          <jmeno>{{JMENO}}</jmeno>
+          <titul_pred>{{TITUL_PRED}}</titul_pred>
+          <titul_za>{{TITUL_ZA}}</titul_za>
+          <!-- ICO vyplnit jen u podnikatelu -->
+          <ico>{{ICO}}</ico>
+        </osoba>
+        <!-- Statni prislusnost - jen u zahranicnich osob, kod ISO 3166 A-2 -->
+        <statni_prislusnost>{{STAT_PRISLUSNOST}}</statni_prislusnost>
+        <datum_narozeni>{{DATUM_NAROZENI}}</datum_narozeni>
+        <rodne_cislo>{{RODNE_CISLO}}</rodne_cislo>
+        <!-- svobodny/svobodna, zenaty/vdana, registrovany partner/ka, rozvedeny/rozvedena, vdovec/vdova -->
+        <osobni_stav>{{OSOBNI_STAV}}</osobni_stav>
+      </osobni_udaje>
+      <adresa>
+        <ulice>{{ULICE}}</ulice>
+        <cpop>{{CPOP}}</cpop>
+        <cori>{{CORI}}</cori>
+        <psc>{{PSC}}</psc>
+        <obec>{{OBEC}}</obec>
+      </adresa>
+      <!-- Koresponencni adresa - switch="1" jen pokud se lisi od trvaleho bydliste -->
+      <koresp_adresa switch="{{KORESP_SWITCH}}">
+        <ulice>{{K_ULICE}}</ulice>
+        <cpop>{{K_CPOP}}</cpop>
+        <cori>{{K_CORI}}</cori>
+        <psc>{{K_PSC}}</psc>
+        <obec>{{K_OBEC}}</obec>
+      </koresp_adresa>
+      <kontakt>
+        <email>{{EMAIL}}</email>
+        <dat_schr>{{DAT_SCHR}}</dat_schr>
+        <tel>{{TEL}}</tel>
+      </kontakt>
+    </fyzicka_osoba>
+    <!-- Pri spolecnem navrhu manzelu pridat druhy element fyzicka_osoba -->
+  </dluznik>
+
+  <!-- ============================================================ -->
+  <!-- IV. IDENTIFIKACE OSOBY OPRAVNENE JEDNAT ZA DLUZNIKA         -->
+  <!-- ============================================================ -->
+  <jednaji_za_dluznika switch="1">
+    <jedna_za_dluznika fo_po_switch="1">
+      <!-- "1" = pouze pro sepis a podani, "2" = zastupce pro cele rizeni, "3" = pro dilci ukony -->
+      <osoba_je>1</osoba_je>
+      <fyzicka_osoba>
+        <osoba>
+          <prijmeni>Říha</prijmeni>
+          <jmeno>Vojtěch</jmeno>
+          <titul_pred>JUDr.</titul_pred>
+          <titul_za>Ph.D.</titul_za>
+          <ico>21006601</ico>
+        </osoba>
+      </fyzicka_osoba>
+    </jedna_za_dluznika>
+  </jednaji_za_dluznika>
+
+  <!-- ============================================================ -->
+  <!-- V. POPIS ROZHODUJICICH SKUTECNOSTI OSVEDCUJICICH UPADEK      -->
+  <!-- ============================================================ -->
+  <popis_rozhodujicich_skutecnosti>
+    <!-- "1" = platebni neschopnost, "2" = predluzeni -->
+    <forma_upadku>1</forma_upadku>
+    <zavazky>
+      <!-- Opakovatelny element: minimalne 2 zavazky -->
+      <zavazek>
+        <poradi>1</poradi>
+        <veritel>{{VERITEL_1_NAZEV}}</veritel>
+        <duvod>{{VERITEL_1_DUVOD}}</duvod>
+        <d_splatnosti>{{VERITEL_1_SPLATNOST}}</d_splatnosti>
+        <vyse_zavazku>{{VERITEL_1_CASTKA}}</vyse_zavazku>
+      </zavazek>
+      <zavazek>
+        <poradi>2</poradi>
+        <veritel>{{VERITEL_2_NAZEV}}</veritel>
+        <duvod>{{VERITEL_2_DUVOD}}</duvod>
+        <d_splatnosti>{{VERITEL_2_SPLATNOST}}</d_splatnosti>
+        <vyse_zavazku>{{VERITEL_2_CASTKA}}</vyse_zavazku>
+      </zavazek>
+      <!-- Dalsi zavazky dle potreby -->
+    </zavazky>
+    <!-- Souhrn - jen pri predluzeni -->
+    <!-- <souhrn_zavazku>{{SOUHRN_ZAVAZKU}}</souhrn_zavazku> -->
+    <!-- <hodnota_majetku>{{HODNOTA_MAJETKU}}</hodnota_majetku> -->
+    <!-- "1" = zastavil platby, "2" = neplni 3+ mesice, "3" = nelze vykon rozhodnuti -->
+    <dalsi_skutecnosti>2</dalsi_skutecnosti>
+    <dalsi_skutecnosti_popis>{{DALSI_SKUTECNOSTI_POPIS}}</dalsi_skutecnosti_popis>
+  </popis_rozhodujicich_skutecnosti>
+
+  <!-- ============================================================ -->
+  <!-- VI. OKOLNOSTI PRO VYSI PLNENI                                -->
+  <!-- ============================================================ -->
+  <okolnosti_pro_vysi_plneni>
+    <vyz_povinnosti>
+      <dluznik>
+        <!-- Pocet osob pro nezabavitelnou castku (BEZ osob s nariz. vyzivnym) -->
+        <pocet_vyzivovanych_osob>{{POCET_VYZ_OSOB}}</pocet_vyzivovanych_osob>
+        <vyzivne>
+          <!-- Mesicni vyzivne stanovene soudem celkem v Kc -->
+          <vyse>{{VYZIVNE_VYSE}}</vyse>
+          <!-- Pocet osob, kterym je vyzivne placeno -->
+          <pocet_osob>{{VYZIVNE_POCET}}</pocet_osob>
+        </vyzivne>
+        <vyzivne_dluzne>
+          <!-- Celkova vyse dluzneho vyzivneho -->
+          <vyse>{{DLUZNE_VYZIVNE}}</vyse>
+          <!-- "1" = odhadovana castka, "0" = presna castka -->
+          <odhad>0</odhad>
+        </vyzivne_dluzne>
+      </dluznik>
+      <!-- Pri spolecnem navrhu manzelu pridat druhy element dluznik -->
+    </vyz_povinnosti>
+    <!-- Odmena sepisovatele navrhu v Kc -->
+    <vyse_odmena>4000.00</vyse_odmena>
+    <!-- Podrobny popis okolnosti pro uspokojeni nezajistenych veritelu -->
+    <popis>{{POPIS_OKOLNOSTI_PLNENI}}</popis>
+  </okolnosti_pro_vysi_plneni>
+
+  <!-- ============================================================ -->
+  <!-- VII. PRIJMY ZA POSLEDNICH 12 MESICU                          -->
+  <!-- ============================================================ -->
+  <prijmy_minule>
+    <celkem>{{PRIJMY_MINULE_CELKEM}}</celkem>
+    <popis>{{PRIJMY_MINULE_POPIS}}</popis>
+  </prijmy_minule>
+
+  <!-- ============================================================ -->
+  <!-- VIII. OCEKAVANE PRIJMY V NASLEDUJICICH 12 MESICICH            -->
+  <!-- ============================================================ -->
+  <prijmy_ocekavane>
+    <celkem>{{PRIJMY_OCEKAVANE_CELKEM}}</celkem>
+    <popis>{{PRIJMY_OCEKAVANE_POPIS}}</popis>
+    <dluznik_prijmy_z>
+      <!-- Opakovatelny element prijmy_z -->
+      <prijmy_z>
+        <!-- druh: "1"=Zamestnani, "2"=OSVC, "3"=Starobni duchod, "4"=Invalidni duchod, -->
+        <!--        "5"=Vysluhy, "6"=Davky SSP/HN, "7"=Jine -->
+        <druh>{{DRUH_PRIJMU}}</druh>
+        <druh_detail>
+          <!-- Pro druh "7" (Jine) nebo druh "1" (Zamestnani) - platce -->
+          <jine>
+            <platce>
+              <poradi>1</poradi>
+              <osoba_platce>{{PLATCE_NAZEV}}</osoba_platce>
+              <adresa_platce>{{PLATCE_ADRESA}}</adresa_platce>
+              <vyse>{{PLATCE_VYSE}}</vyse>
+              <ico>{{PLATCE_ICO}}</ico>
+            </platce>
+          </jine>
+          <!-- Pro druh "2" (OSVC) -->
+          <!-- <osvc>
+            <popis_podnikani>{{POPIS_PODNIKANI}}</popis_podnikani>
+            <vyse>{{OSVC_VYSE}}</vyse>
+          </osvc> -->
+        </druh_detail>
+      </prijmy_z>
+    </dluznik_prijmy_z>
+    <!-- Treti osoba poskytujici plneni (darovaci smlouva, smlouva o duchodu) -->
+    <treti_osoba switch="{{TRETI_OSOBA_SWITCH}}">
+      <platci>
+        <!-- <platce>
+          <poradi>1</poradi>
+          <osoba_platce>{{TO_NAZEV}}</osoba_platce>
+          <adresa_platce>{{TO_ADRESA}}</adresa_platce>
+          <vyse>{{TO_VYSE}}</vyse>
+          <vyjadreni_dluznika>{{TO_VYJADRENI}}</vyjadreni_dluznika>
+        </platce> -->
+      </platci>
+    </treti_osoba>
+    <!-- Zavazny prislib - splatkovy kalendar -->
+    <prislib switch="0">
+      <vyjadreni/>
+    </prislib>
+  </prijmy_ocekavane>
+
+  <!-- ============================================================ -->
+  <!-- IX. SCHOPNOSTI A MOZNOSTI VYDELEVNE CINNOSTI                 -->
+  <!-- ============================================================ -->
+  <schopnosti>
+    <dluznik>
+      <!-- "1" = zakladni, "2" = stredni, "3" = vyssi odborne, "4" = vysokoskolske -->
+      <vzdelani>{{VZDELANI}}</vzdelani>
+      <popis_vzdelani>{{POPIS_VZDELANI}}</popis_vzdelani>
+      <dovednosti>
+        <!-- Opakovatelny element dovednost -->
+        <dovednost>
+          <!-- druh: napr. "ridicske opravneni", "jazykova znalost", "certifikat", "jine" -->
+          <druh>{{DOVEDNOST_DRUH}}</druh>
+          <popis>{{DOVEDNOST_POPIS}}</popis>
+        </dovednost>
+      </dovednosti>
+      <faktory>
+        <predchozi_zamestnani>{{PREDCHOZI_ZAMESTNANI}}</predchozi_zamestnani>
+        <dojizdeni>{{DOJIZDENI}}</dojizdeni>
+        <dalsi>{{DALSI_FAKTORY}}</dalsi>
+      </faktory>
+    </dluznik>
+    <!-- Pri spolecnem navrhu manzelu pridat druhy element dluznik -->
+  </schopnosti>
+
+  <!-- ============================================================ -->
+  <!-- X. DRIVEJSI INSOLVENCNI RIZENI                               -->
+  <!-- ============================================================ -->
+  <!-- switch="1" pokud bylo drivejsi rizeni, "0" pokud ne -->
+  <drivejsi_rizeni switch="{{DRIVEJSI_RIZENI_SWITCH}}">
+    <!-- <rizeni>
+      <spisznacka>
+        <soud>{{DR_SOUD}}</soud>
+        <senat>{{DR_SENAT}}</senat>
+        <rejstrik>INS</rejstrik>
+        <bc>{{DR_BC}}</bc>
+        <rocnik>{{DR_ROCNIK}}</rocnik>
+      </spisznacka>
+      <zahranicni switch="0"/>
+    </rizeni> -->
+    <!-- Osvobozeni od placeni pohledavek v poslednich 20 letech -->
+    <osvob_pohl>{{OSVOB_POHL}}</osvob_pohl>
+    <!-- Zamitnuty navrh pro nepoctivy zamer v poslednich 5 letech -->
+    <oddluzeni_neschv>{{ODDLUZENI_NESCHV}}</oddluzeni_neschv>
+    <!-- Vzeti navrhu zpet v poslednich 3 mesicich -->
+    <navrh_vzat_zpet>{{NAVRH_VZAT_ZPET}}</navrh_vzat_zpet>
+    <duvody/>
+  </drivejsi_rizeni>
+
+  <!-- ============================================================ -->
+  <!-- XI. NAVRH NA STANOVENI JINE NEZ ZAKONEM URCENE SPLATKY      -->
+  <!-- ============================================================ -->
+  <navrh_jina_splatka switch="{{JINA_SPLATKA_SWITCH}}">
+    <!-- <vyse_nebo_urceni>{{JINA_SPLATKA_VYSE}}</vyse_nebo_urceni> -->
+    <!-- <duvod_snizeni>{{JINA_SPLATKA_DUVOD}}</duvod_snizeni> -->
+    <!-- <duvod_upadku>{{JINA_SPLATKA_DUVOD_UPADKU}}</duvod_upadku> -->
+  </navrh_jina_splatka>
+
+  <!-- ============================================================ -->
+  <!-- XII. ZAHRANICNI VERITELE Z EU                                -->
+  <!-- ============================================================ -->
+  <zahranicni_veritele switch="{{ZAHR_VERITELE_SWITCH}}">
+    <!-- <z_veritel>
+      <poradi>1</poradi>
+      <veritel>{{ZV_NAZEV}}</veritel>
+      <duvod>{{ZV_DUVOD}}</duvod>
+      <adresa>{{ZV_ADRESA}}</adresa>
+    </z_veritel> -->
+  </zahranicni_veritele>
+
+  <!-- ============================================================ -->
+  <!-- XIV. PODPIS                                                  -->
+  <!-- ============================================================ -->
+  <!-- Navrh podava sepisovatel za dluznika dle § 390a IZ -->
+  <podpisy>
+    <!-- Podpis sepisovatele (podavajici navrh za dluznika) -->
+    <podpis>
+      <v_mesto>Praha</v_mesto>
+      <dne>{{DATUM_PODPISU}}</dne>
+      <osoba>
+        <prijmeni>Říha</prijmeni>
+        <jmeno>Vojtěch</jmeno>
+        <titul_pred>JUDr.</titul_pred>
+        <titul_za>Ph.D.</titul_za>
+      </osoba>
+    </podpis>
+  </podpisy>
+
+</NNPO>
+</xfa:data>
+</xfa:datasets>
