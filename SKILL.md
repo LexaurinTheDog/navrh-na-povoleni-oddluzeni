@@ -113,8 +113,8 @@ Zakladni URL: `https://ares.gov.cz/ekonomicke-subjekty-v-be/rest`
    ```
    Z odpovedi ziskej:
    - `obchodniJmeno` → overeni jmena
-   - `sidlo.textovaAdresa` → overeni adresy
-   - `sidlo.kodKraje` / `sidlo.nazevKraje` → urceni prislusneho krajskeho soudu
+   - `bydliste.textovaAdresa` → overeni adresy trvaleho bydliste (NIKOLI `sidlo`, ktere je adresou podnikani)
+   - `bydliste.kodKraje` / `bydliste.nazevKraje` → urceni prislusneho krajskeho soudu
    - `dic` → overeni rodneho cisla (format CZrrmmddxxxx)
    - `pravniForma` → "101" = FO podnikajici
    - `datumVzniku` → datum zahajeni podnikani
@@ -153,7 +153,7 @@ ARES OVERENI - vysledky
 
 DLUZNIK:
   Jmeno:           [ares] vs [dokumenty] → OK / NESOULAD
-  Adresa:          [ares] vs [dokumenty] → OK / NESOULAD
+  Trvale bydliste: [ares bydliste] vs [dokumenty] → OK / NESOULAD
   Datova schranka: [ID z ARES]
   Stav v CEU:      Zadny zaznam / ZAZNAM NALEZEN (!)
   Aktivni zivnosti: X
@@ -168,7 +168,7 @@ VERITELE:
 **Data z ARES pouzij automaticky:**
 - Datovou schranku dluznika → vyplnit do XML (`<dat_schr>`)
 - Overene adresy veritelu → pouzit v seznamu zavazku
-- Kraj z adresy dluznika → potvrdit/urcit prislusny krajsky soud
+- Kraj z trvaleho bydliste dluznika (`bydliste.kodKraje`) → potvrdit/urcit prislusny krajsky soud
 - Stav v CEU → nastavit `<drivejsi_rizeni switch="0">` nebo `"1"`
 
 ---
@@ -182,7 +182,7 @@ Po ziskani vsech udaju a overeni v ARES proved:
    - Schopnost splacet minimalni mesicni splatku (odmena IS + hotove vydaje + stejna castka veritelum)
    - Zadny priznak nepoctiveho zameru
 
-2. **Urceni prislusneho soudu** podle bydliste dluznika (potvrdit krajem z ARES pole `sidlo.kodKraje`):
+2. **Urceni prislusneho soudu** podle trvaleho bydliste dluznika (potvrdit krajem z ARES pole `bydliste.kodKraje`):
 
    | kodKraje (ARES) | Kraj | Kod soudu |
    |---|---|---|
